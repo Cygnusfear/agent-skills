@@ -22,9 +22,10 @@ Copy and customize:
 
 ## 00.00 Johnny Lookup
 
-If the human gives you only an ID like `20.01` (or `2001`), treat it as a handbook call:
+If the human gives you only an ID like `20.01` (or `2001`), treat it as a playbook call:
 
-- Find `docs/handbook/**/20.01-*.md`
+- Replace dot with hyphen: `20.01` → `20-01`
+- Find `docs/playbook/**/20-01-*/SKILL.md`
 - Read it
 - Follow it literally
 
@@ -40,7 +41,7 @@ Read only what you need.
 - Feature area → `docs/features/NN-area/README.md`
 - Spec/plan → `docs/features/NN-area/NN.NN-*-spec.md` / `NN.NN-*-plan.md`
 - Architecture/research → `docs/reference/`
-- Process/tooling → `docs/handbook/`
+- Process/tooling → `docs/playbook/`
 
 ### Open Questions
 

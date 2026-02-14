@@ -18,7 +18,7 @@ Track open questions in Obsidian comments so they are searchable, linkable, and 
 %% 🤖 Agent question waiting on human 🙋‍♂️ human answers 🤖 asks more 🙋‍♂️ sure why not %% ^q-scope-topic
 ```
 
-When done, mark it resolved in place (optionally copy it to a question archive note such as `docs/handbook/10-docs/10.02-question-archive.md`).
+When done, mark it resolved in place (optionally copy it to a question archive note such as `docs/playbook/10-docs/10-02-question-archive/SKILL.md`).
 
 ```
 %% ✅ Question here → Answer here %% ^q-scope-topic
@@ -58,7 +58,7 @@ Obsidian search:
 ## Linking to a Question
 
 ```
-[[features/10-core/10.06-client-prediction-spec#^q-prediction-fixed-tick|Prediction tick question]]
+[[features/10-core/10-06-client-prediction-spec#^q-prediction-fixed-tick|Prediction tick question]]
 ```
 
 ## Open Questions Index (Dataview)
@@ -66,7 +66,7 @@ Obsidian search:
 Use this in `docs/open-questions.md` to group open questions by who responds next.
 
 ```dataviewjs
-const pages = dv.pages('"features" or "reference" or "handbook"');
+const pages = dv.pages('"features" or "reference" or "playbook"');
 const results = [];
 
 function getLastResponder(text) {

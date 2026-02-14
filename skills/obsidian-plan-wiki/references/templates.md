@@ -230,9 +230,10 @@ Agent instructions belong here:
 
 ## 00.00 Johnny Lookup
 
-If the human gives you simply an ID like `20.01` (or `2001`), treat it as a **handbook call**.
+If the human gives you simply an ID like `20.01` (or `2001`), treat it as a **playbook call**.
 
-- Locate and read the matching handbook doc: `docs/handbook/**/20.01-*.md`
+- Replace dot with hyphen: `20.01` → `20-01`
+- Locate and read the matching playbook entry: `docs/playbook/**/20-01-*/SKILL.md`
 - Follow the instructions literally.
 - If multiple matches exist, list them and pick the most relevant by context.
 
@@ -284,7 +285,7 @@ Feature areas use Johnny Decimal IDs with two-digit decimals. Specs/plans use `N
 
 ### Open Questions System
 
-See [[handbook/10-docs/10.01-open-questions-system]] for full spec.
+See [[playbook/10-docs/10-01-open-questions-system/SKILL]] for full spec.
 
 **WHO ANSWERS WHAT:**
 | Emoji | Who wrote it | Who should answer/action |
@@ -323,7 +324,7 @@ Every top-level code or source folder must include an `AGENTS.md` that explains:
 | `docs/reference/AGENTS.md` | Purpose, Johnny Decimal convention, citation rules |
 | `docs/plans/AGENTS.md` | Purpose, naming convention (`YYYY-MM-DD-HHMM-topic.md`), plan quality rules |
 | Postmortem tickets (tagged `postmortem`) | Purpose, incident learnings |
-| `docs/handbook/AGENTS.md` | Purpose, Johnny Decimal areas, update rules |
+| `docs/playbook/AGENTS.md` | Purpose, Johnny Decimal areas, update rules |
 
 **Referencing postmortems from code AGENTS.md:**
 
@@ -350,7 +351,7 @@ When a past incident is relevant to a code folder, link the postmortem directly 
 
 - [[AGENTS]] - Rules for agents
 - [[changelog]] - What changed and when
-- [[handbook/README]] - Process and tooling handbook
+- [[playbook/README]] - Process and tooling playbook
 - [[reference/architecture]] - System overview
 - [[reference/decisions]] - ADRs
 

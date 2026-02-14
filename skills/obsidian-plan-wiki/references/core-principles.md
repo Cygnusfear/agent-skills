@@ -6,44 +6,45 @@ Load only what's needed:
 
 ```
 User asks about auth → Read features/10-core/README.md
-User asks about login → Read features/10-core/10.01-auth-spec.md
+User asks about login → Read features/10-core/10-01-auth-spec.md
 User asks for overview → Read README.md only
 ```
 
 ## 2. Johnny Decimal Structure
 
-Organize **features**, **handbook**, and **reference** docs using Johnny Decimal (johnnydecimal.com).
+Organize **features**, **playbook**, and **reference** docs using Johnny Decimal (johnnydecimal.com).
 
 **Hard rules (avoid drift):**
 - Use **two-digit decimals everywhere**: `NN.NN` (NOT `NN.N`, NOT `NN`, NOT `01` without `.01`).
 - **Features:** folder `docs/features/NN-name/`, files `NN.NN-*-spec.md` and `NN.NN-*-plan.md`.
-- **Handbook:** folder `docs/handbook/NN-area/`, files `NN.NN-topic.md`.
+- **Playbook:** folder `docs/playbook/NN-area/`, entries `NN.NN-topic/SKILL.md`.
 - **Reference:** folder `docs/reference/NN-area/`, files `NN.NN-topic.md`.
 
 **Johnny lookup flow (common):**
-- If the human says `20.01` (or `2001`) with no other context, interpret it as "open handbook section 20.01".
-- Locate it by filename prefix (do not guess the topic slug):
-  - `docs/handbook/**/20.01-*.md`
+- If the human says `20.01` (or `2001`) with no other context, interpret it as "open playbook section 20.01".
+- Replace dot with hyphen: `20.01` → `20-01`
+- Locate it by directory prefix (do not guess the topic slug):
+  - `docs/playbook/**/20-01-*/SKILL.md`
   - If multiple matches exist, pick the closest match by area/README context and link to the others.
 
 Example:
 ```
 docs/features/10-core/
 ├── README.md
-├── 10.01-auth-spec.md
-└── 10.01-auth-plan.md
+├── 10-01-auth-spec.md
+└── 10-01-auth-plan.md
 ```
 
-**Example handbook/reference naming:**
+**Example playbook/reference naming:**
 
 ```text
-docs/handbook/20-git/
-├── 20.01-methodic-rebase-merge.md
-└── 20.04-post-merge-hygiene.md
+docs/playbook/20-git/
+├── 20-01-methodic-rebase-merge/SKILL.md
+└── 20-04-post-merge-hygiene/SKILL.md
 
 docs/reference/01-design/
-├── 01.07-game-design.md
-└── 01.16-ticket-metadata-audit.md
+├── 01-07-game-design.md
+└── 01-16-ticket-metadata-audit.md
 ```
 
 **Johnny decimal drift to watch for:**
@@ -61,8 +62,8 @@ docs/reference/01-design/
 **Quick audit (optional):**
 
 ```bash
-# Find reference/handbook files missing an NN.NN prefix (heuristic)
-rg --files docs/reference docs/handbook | rg -v "/[0-9]{2}\.[0-9]{2}-"
+# Find reference/playbook files missing an NN.NN prefix (heuristic)
+rg --files docs/reference docs/playbook | rg -v "/[0-9]{2}\.[0-9]{2}-"
 
 # Find feature docs missing an NN.NN prefix (heuristic)
 rg --files docs/features | rg -v "/[0-9]{2}\.[0-9]{2}-"
@@ -73,7 +74,7 @@ rg --files docs/features | rg -v "/[0-9]{2}\.[0-9]{2}-"
 All references use `[[wiki-links]]`. Broken links = sync signal.
 
 ```markdown
-[[features/10-core/10.01-auth-spec|Login Flow]]
+[[features/10-core/10-01-auth-spec|Login Flow]]
 [[reference/architecture#auth-middleware|Auth Middleware]]
 ```
 
@@ -122,7 +123,7 @@ Last emoji is 🤖 → Human's turn. When `✅` → Done.
 
 **Linking to questions:**
 ```markdown
-[[features/10-core/10.01-auth-spec#^q-auth-oauth|OAuth question]]
+[[features/10-core/10-01-auth-spec#^q-auth-oauth|OAuth question]]
 ```
 
 **Search in Obsidian:** Search for the emoji.

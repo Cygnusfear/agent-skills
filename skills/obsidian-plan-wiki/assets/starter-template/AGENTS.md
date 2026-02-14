@@ -2,10 +2,10 @@
 
 ## 00.00 Johnny Lookup
 
-If the human gives you only an ID like `20.01` (or `2001`), treat it as a handbook call:
+If the human gives you only an ID like `20.01` (or `2001`), treat it as a playbook call:
 
-1. Check `docs/handbook/**/20.01-*.md` — if it exists, read and follow it (local override).
-2. If no local file, read `handbook/20-git/20.01-*.md` from the `obsidian-plan-wiki` skill.
+1. Check `docs/playbook/**/20.01-*/SKILL.md` — if it exists, read and follow it (local override).
+2. If no local file, read `playbook/20-git/20-01-*/SKILL.md` from the `obsidian-plan-wiki` skill.
 3. Follow the instructions literally.
 
 ---
@@ -20,7 +20,7 @@ Read only what you need.
 - Feature area → `docs/features/NN-area/README.md`
 - Spec/plan → `docs/features/NN-area/NN.NN-*-spec.md` / `NN.NN-*-plan.md`
 - Architecture/research → `docs/reference/`
-- Process/tooling → `docs/handbook/`
+- Process/tooling → `docs/playbook/`
 
 ### Open Questions
 
@@ -53,7 +53,7 @@ Lifecycle: `tk create` → `tk start <id>` → work → `tk close <id>` → comm
 
 ### Rebase Strategy
 
-Read and follow the handbook in `20-git`. Use critical sanity check if circumstances deviate. In case of doubt, ask the Hooman.
+Read and follow the playbook in `20-git`. Use critical sanity check if circumstances deviate. In case of doubt, ask the Hooman.
 
 1. `20.01` Rebase Preparations
 2. `20.02` Rebase

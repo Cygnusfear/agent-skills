@@ -19,7 +19,7 @@ Or create manually:
 7. Create `plans/` with AGENTS.md
 8. Use tickets tagged `postmortem` for incident learnings
 9. Create `reference/` with AGENTS.md and README.md
-10. Create `handbook/` with AGENTS.md and README.md
+10. Create `playbook/` with AGENTS.md and README.md
 11. Keep `research/` with index.md
 12. Add specs as needed
 
@@ -102,6 +102,6 @@ Use relative markdown links (Obsidian-compatible):
 | Feature-area-specific rules | Create `AGENTS.md` in feature area |
 | New code/source folder | Create `AGENTS.md` in that folder |
 | Agent mistake or system failure | Create postmortem ticket (tagged `postmortem`) |
-| Recurring agent situation | Create handler in `handbook/80-agent-behaviour/` |
+| Recurring agent situation | Create handler in `playbook/80-agent-behaviour/` |
 | Spec drifted from code | Run spec divergence audit |
 | Tickets drifted from reality | Run ticket divergence audit |
