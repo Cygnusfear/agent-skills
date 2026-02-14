@@ -90,6 +90,7 @@ The skill provides canonical playbook entries — each is a SKILL.md (standard f
 | `20.02` | Rebase (execute) | `playbook/20-git/20-02-authoritative-main-rebase/SKILL.md` |
 | `20.03` | Merge (execute) | `playbook/20-git/20-03-merge-local-safe/SKILL.md` |
 | `20.04` | Post-merge hygiene | `playbook/20-git/20-04-post-merge-hygiene/SKILL.md` |
+| `20.05` | Debrief | `playbook/20-git/20-05-debrief/SKILL.md` |
 | `30.01` | Full refactor guide | `playbook/30-refactor/30-01-full-refactor-guide/SKILL.md` |
 | `50.01` | Video-based NHITL testing | `playbook/50-testing/50-01-video-based-nhitl-testing/SKILL.md` |
 | `80.01` | Autonomous work | `playbook/80-agent-behaviour/80-01-autonomous-work/SKILL.md` |
