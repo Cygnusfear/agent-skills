@@ -213,7 +213,7 @@ After reviewing all files:
 
 ### Phase 4: Generate Review Report
 
-Create report at `.reviews/code-review-[timestamp].md`:
+Create a tk ticket tagged `review` with the report as its body. Use `todos_oneshot(title: "Review: <branch-or-summary>", description: "<report content>", tags: "review", type: "task")`.
 
 ```markdown
 # Code Review Report
@@ -471,7 +471,7 @@ Provide concise summary:
 2. Add error handling
 3. Remove legacy code per REMOVAL SPEC
 
-**Full Report**: `.reviews/code-review-[timestamp].md`
+**Full Report**: tk ticket (tagged `review`)
 ```
 
 ## Critical Principles

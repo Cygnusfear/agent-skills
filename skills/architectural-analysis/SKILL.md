@@ -335,7 +335,7 @@ Look for:
 
 ### Phase 7: Generate Report
 
-Create report at `.audits/architectural-analysis-[timestamp].md`:
+Create a tk ticket tagged `audit` with the report as its body. Use `todos_oneshot(title: "Audit: Architectural analysis", description: "<report content>", tags: "audit", type: "task")`.
 
 ```markdown
 # Architectural Analysis Report
@@ -618,7 +618,7 @@ Provide concise summary:
 ## Cleanup Potential
 Removing dead code and consolidating duplication could eliminate **~X,XXX lines** (Y% of codebase)
 
-**Full Report**: `.audits/architectural-analysis-[timestamp].md`
+**Full Report**: tk ticket (tagged `audit`)
 ```
 
 ## Critical Principles

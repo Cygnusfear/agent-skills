@@ -1,6 +1,6 @@
 ---
 name: update-docs
-description: Update all documentation in .plans, AGENTS.md files, docs, and .tasks to match current codebase state. Use when user asks to update docs, refresh documentation, sync docs with code, or validate documentation accuracy.
+description: Update all documentation in docs and AGENTS.md files to match current codebase state. Use when user asks to update docs, refresh documentation, sync docs with code, or validate documentation accuracy.
 ---
 
 # Update Documentation
@@ -63,7 +63,6 @@ Systematically review and update all project documentation to ensure accuracy, c
    - Plan tickets (tagged `plan`) - search with `tk list --tag plan`
    - `**/AGENTS.md` - Claude-specific guidelines
    - `docs/**/*` - General documentation
-   - `.tasks/**/*` - Task tracking files
    - Any other doc files the user specifies
 
 2. **Git analysis** (if applicable):
@@ -211,7 +210,7 @@ After reviewing all individual documents:
 2. [New docs needed]
 ```
 
-2. **Save summary** to `.docs-updates/update-[timestamp].md`
+2. **Save summary** as a tk ticket tagged `docs` via `todos_oneshot(title: "Docs update summary", description: "<summary>", tags: "docs", type: "task")`
 
 ### Phase 5: Validation
 

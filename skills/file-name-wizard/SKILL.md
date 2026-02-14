@@ -128,7 +128,7 @@ After auditing all files:
 
 ### Phase 4: Generate Report
 
-Create report at `.audits/naming-audit-[timestamp].md`:
+Create a tk ticket tagged `audit` with the report as its body. Use `todos_oneshot(title: "Audit: Naming conventions", description: "<report content>", tags: "audit", type: "task")`.
 
 ```markdown
 # Filename & Naming Convention Audit
@@ -323,7 +323,7 @@ Provide concise summary:
 - `src/utils/` needs pattern definition
 - Test files need naming standard
 
-**Full Report**: `.audits/naming-audit-[timestamp].md`
+**Full Report**: tk ticket (tagged `audit`)
 ```
 
 ## Critical Principles

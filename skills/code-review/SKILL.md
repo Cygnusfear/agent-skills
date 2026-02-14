@@ -54,13 +54,9 @@ Default (no multiplier): Single reviewer, standard mode.
 
 ### Parallel Review Process
 
-#### Step 1: Create Output Directory
+#### Step 1: Prepare Review Tickets
 
-```bash
-# Create timestamped directory
-REVIEW_DIR=".reviews/$(date +%Y-%m-%d-%H%M%S)"
-mkdir -p "$REVIEW_DIR"
-```
+Each reviewer will create a tk ticket tagged `review` for their findings. In parallel mode, each reviewer creates their own ticket, and a synthesis ticket links them together.
 
 #### Step 2: Gather Review Context
 
@@ -130,8 +126,7 @@ Compile Task Summary with full context.
 
 ## Output Requirements
 
-Write your COMPLETE review to:
-`.reviews/{timestamp}/{N}-review.md`
+Write your COMPLETE review as a tk ticket. Use `todos_oneshot(title: "Review: <PR/branch> (reviewer {N})", description: "<review content>", tags: "review", type: "task")`.
 
 Your review MUST include these 5 sections:
 
@@ -207,7 +202,7 @@ Read each reviewer's full report. Track:
 
 ### Phase 3: Create Unified Review
 
-Write to `.reviews/{timestamp}/review-merged.md`:
+Create a synthesis tk ticket tagged `review` linking all reviewer tickets. Use `todos_oneshot(title: "Review: <PR/branch> (synthesis)", description: "<synthesis content>", tags: "review", type: "task")`:
 
 # Parallel Code Review Synthesis
 
@@ -279,12 +274,11 @@ _Parallel review synthesis of {N} independent reviewers_
 
 ```
 
-.reviews/
-2025-12-09-143022/
-1-review.md # Reviewer 1's independent review
-2-review.md # Reviewer 2's independent review
-3-review.md # Reviewer 3's independent review
-review-merged.md # Synthesized review
+tk tickets:
+  "Review: PR #42 (reviewer 1)" — tagged review
+  "Review: PR #42 (reviewer 2)" — tagged review
+  "Review: PR #42 (reviewer 3)" — tagged review
+  "Review: PR #42 (synthesis)" — tagged review, links to above
 
 ````
 
@@ -292,11 +286,10 @@ review-merged.md # Synthesized review
 
 User: `code-review-3` (or `code-review 3X`)
 
-1. Create `.reviews/2025-12-09-143022/`
-2. Launch 3 reviewers in parallel with identical prompts
-3. Each independently executes 6-pass methodology
-4. Each writes to `1-review.md`, `2-review.md`, `3-review.md`
-5. Synthesis task reads all three and creates `review-merged.md`
+1. Launch 3 reviewers in parallel with identical prompts
+2. Each independently executes 6-pass methodology
+3. Each creates a tk ticket tagged `review` with their findings
+4. Synthesis task reads all reviewer tickets and creates a synthesis tk ticket
 6. Post synthesized review to GitHub PR
 
 ---
@@ -1132,22 +1125,20 @@ gh pr review <PR_NUMBER> --comment --body "[review comments]"
 
 ### Step 6: Save Local Copy
 
-Write review to `.reviews/` directory:
+Save review as a tk ticket tagged `review`:
 
 **Standard Mode:**
 
 ```
-.reviews/pr-<number>-review-[timestamp].md
+todos_oneshot(title: "Review: PR #<number>", description: "<review>", tags: "review", type: "task")
 ```
 
 **Parallel Mode:**
 
+Each reviewer creates a ticket, then a synthesis ticket links them:
 ```
-.reviews/[YYYY-MM-DD-HHMMSS]/
-  1-review.md
-  2-review.md
-  ...
-  review-merged.md
+"Review: PR #<number> (reviewer N)" — tagged review
+"Review: PR #<number> (synthesis)" — tagged review
 ```
 
 ---
@@ -1319,14 +1310,14 @@ A complete comprehensive review includes:
 ### Parallel Mode Additional Criteria
 
 - [ ] Multiplier correctly detected from invocation
-- [ ] Output directory created with timestamp
+- [ ] Review tickets created with proper tags
 - [ ] All N reviewers launched simultaneously
 - [ ] Each reviewer wrote to numbered file
 - [ ] Synthesis completed after all reviewers
 - [ ] Convergent findings identified and prioritized
 - [ ] Divergent findings documented
 - [ ] Unified action items generated
-- [ ] `review-merged.md` contains full synthesis
+- [ ] Synthesis ticket contains full synthesis
 
 ---
 
