@@ -1,11 +1,13 @@
 ---
 name: 20-05-debrief
-description: Write a full-fidelity debrief after completing development work. Use after any merge, feature completion, or significant work session.
+description: Write a full-fidelity post-mortem after completing development work. Use after any merge, feature completion, or significant work session.
 ---
 
-# 20.05 Debrief
+# 20.05 Post-Mortem
 
-Write a debrief after every significant piece of development work. This is NOT an incident report — it's a full-fidelity account of what happened during the work so future agents and humans understand the real story.
+Write a post-mortem after every significant piece of development work. This is NOT just for incidents — it's a full-fidelity account of what happened during the work so future agents and humans understand the real story.
+
+⛔ **Post-mortems MUST be committed to `main`.** They are project history, not branch artifacts. If you're on a feature branch, switch to main (or finish your merge first via `20.04`) before creating the post-mortem.
 
 ## When to Write
 
@@ -15,14 +17,16 @@ Write a debrief after every significant piece of development work. This is NOT a
 
 **There is no threshold.** Don't skip because "nothing went wrong" or "it was straightforward." Straightforward work still has decisions, context, and lessons worth capturing.
 
-## Create the Debrief
+## Create the Post-Mortem
 
-Create a `tk` ticket tagged `debrief` with the template below filled in.
+1. Make sure you're on `main`
+2. Create a `tk` ticket tagged `post-mortem` with the template below filled in
+3. Commit to `main`
 
 ## Template
 
 ```markdown
-# Debrief: <title>
+# Post-Mortem: <title>
 
 **Date:** <date>
 **Branch/Feature:** <branch or feature name>
@@ -84,8 +88,9 @@ Pick exactly ONE concrete, actionable improvement. Not five aspirational ideas �
 
 ## Rules
 
-1. **Write with full fidelity.** Don't sanitize, don't summarize into nothing. The goal is that someone reading this in 3 months understands what really happened.
-2. **Blameless.** Describe what happened and why, not whose fault it was. People (and agents) make decisions under uncertainty — document the context, not the blame.
-3. **One binding improvement.** Many postmortems produce a list of 10 action items that nobody does. Pick one. It must actually happen. If you're motivated to do more, great — but only one is required.
-4. **Do it now.** Don't defer "until later" — memory fades fast. The best debrief is written immediately after the work while context is fresh.
-5. **Include the ugly parts.** Dead ends, wrong approaches, wasted time, confusion — these are the most valuable parts for future readers. A debrief that only describes success is useless.
+1. **Commit to `main`.** Post-mortems are project history. Never leave them on a feature branch or worktree.
+2. **Write with full fidelity.** Don't sanitize, don't summarize into nothing. The goal is that someone reading this in 3 months understands what really happened.
+3. **Blameless.** Describe what happened and why, not whose fault it was. People (and agents) make decisions under uncertainty — document the context, not the blame.
+4. **One binding improvement.** Many post-mortems produce a list of 10 action items that nobody does. Pick one. It must actually happen. If you're motivated to do more, great — but only one is required.
+5. **Do it now.** Don't defer "until later" — memory fades fast. The best post-mortem is written immediately after the work while context is fresh.
+6. **Include the ugly parts.** Dead ends, wrong approaches, wasted time, confusion — these are the most valuable parts for future readers. A post-mortem that only describes success is useless.

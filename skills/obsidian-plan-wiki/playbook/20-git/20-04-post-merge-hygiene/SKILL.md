@@ -10,7 +10,7 @@ description: Post-merge cleanup — document implementation, write debrief, upda
 Now in `local main`:
 - document the full (feature) implementation
 - update all other relevant documentation
-- **write a debrief** — run `20.05` (MANDATORY, not optional)
+- **write a post-mortem** — run `20.05` (MANDATORY, not optional)
 - close relevant `tk` tickets and ensure verification + Worktree are recorded
 - clean up worktree and branches
 - 🐲
