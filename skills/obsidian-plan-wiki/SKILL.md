@@ -93,6 +93,7 @@ The skill provides canonical playbook entries — each is a SKILL.md (standard f
 | `20.05` | Debrief | `playbook/20-git/20-05-debrief/SKILL.md` |
 | `15.05` | Pre-mortem | `playbook/15-planning/15-05-premortem/SKILL.md` |
 | `30.01` | Full refactor guide | `playbook/30-refactor/30-01-full-refactor-guide/SKILL.md` |
+| `30.02` | Convergence audit | `playbook/30-refactor/30-02-convergence-audit/SKILL.md` |
 | `50.01` | Video-based NHITL testing | `playbook/50-testing/50-01-video-based-nhitl-testing/SKILL.md` |
 | `80.01` | Autonomous work | `playbook/80-agent-behaviour/80-01-autonomous-work/SKILL.md` |
 | `80.02` | Document feature | `playbook/80-agent-behaviour/80-02-document-feature/SKILL.md` |
