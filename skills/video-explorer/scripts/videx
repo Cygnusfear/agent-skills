@@ -48,6 +48,7 @@ cmd_overview() {
     local video="$1"
     local interval="${2:-10}"
     local width="${3:-320}"
+    local triplet="${4:-0.1}"
 
     [[ -f "$video" ]] || die "video not found: $video"
 
@@ -57,26 +58,36 @@ cmd_overview() {
 
     local duration=$(get_duration "$video")
 
-    echo "Extracting overview frames (${interval}s intervals, ${width}px)..."
+    echo "Extracting overview triplets (${interval}s intervals, ±${triplet}s, ${width}px)..."
 
-    ffmpeg -i "$video" \
-        -vf "fps=1/$interval,scale=$width:-1" \
-        -q:v 3 \
-        -vsync vfr \
-        "$outdir/frame_%04d.jpg" \
-        -y -loglevel error
+    # Extract triplet frames at each sample point: t-δ, t, t+δ
+    local t=0
+    local frame_num=0
+    while (( $(echo "$t < $duration" | bc -l) )); do
+        for offset in "-$triplet" "0" "$triplet"; do
+            local sample=$(echo "$t + $offset" | bc -l)
+            # Clamp to 0
+            if (( $(echo "$sample < 0" | bc -l) )); then sample="0"; fi
+            if (( $(echo "$sample >= $duration" | bc -l) )); then continue; fi
 
-    # Rename with timestamps
-    local i=0
-    for f in "$outdir"/frame_*.jpg; do
-        [[ -f "$f" ]] || continue
-        local ts=$(seconds_to_timestamp $((i * interval)))
-        mv "$f" "$outdir/t_${ts}.jpg"
-        ((i++)) || true
+            local ts=$(seconds_to_timestamp "$sample")
+            local suffix=""
+            if [[ "$offset" == "-$triplet" ]]; then suffix="_a"; 
+            elif [[ "$offset" == "0" ]]; then suffix="_b";
+            else suffix="_c"; fi
+
+            ffmpeg -ss "$sample" -i "$video" \
+                -vf "select=eq(n\,0),scale=$width:-1" \
+                -q:v 3 \
+                -frames:v 1 \
+                "$outdir/t_${ts}${suffix}.jpg" \
+                -y -loglevel error
+        done
+        t=$(echo "$t + $interval" | bc -l)
     done
 
     local count=$(ls -1 "$outdir"/*.jpg 2>/dev/null | wc -l | tr -d ' ')
-    echo "Created $count frames in $outdir"
+    echo "Created $count frames ($((count / 3)) triplets) in $outdir"
     echo "$outdir"
 }
 
@@ -85,6 +96,7 @@ cmd_range() {
     local range="$2"
     local fps="${3:-2}"
     local width="${4:-1280}"
+    local triplet="${5:-0}"
 
     [[ -f "$video" ]] || die "video not found: $video"
     [[ "$range" =~ ^([^-]+)-(.+)$ ]] || die "invalid range format, use: start-end (e.g., 1:30-2:00)"
@@ -100,24 +112,52 @@ cmd_range() {
     local outdir="./videx-out/$name/range_${range_safe}"
     mkdir -p "$outdir"
 
-    echo "Extracting range $start_time to $end_time (${fps}fps, ${width}px)..."
+    if [[ "$triplet" != "0" ]]; then
+        echo "Extracting range $start_time to $end_time (${fps}fps, ±${triplet}s triplets, ${width}px)..."
 
-    ffmpeg -ss "$start_sec" -i "$video" -t "$duration" \
-        -vf "fps=$fps,scale=$width:-1" \
-        -q:v 2 \
-        -vsync vfr \
-        "$outdir/frame_%04d.jpg" \
-        -y -loglevel error
+        local t="$start_sec"
+        local step=$(echo "1 / $fps" | bc -l)
+        while (( $(echo "$t < $end_sec" | bc -l) )); do
+            for offset in "-$triplet" "0" "$triplet"; do
+                local sample=$(echo "$t + $offset" | bc -l)
+                if (( $(echo "$sample < $start_sec" | bc -l) )); then sample="$start_sec"; fi
+                if (( $(echo "$sample >= $end_sec" | bc -l) )); then continue; fi
 
-    # Rename with actual timestamps
-    local i=0
-    for f in "$outdir"/frame_*.jpg; do
-        [[ -f "$f" ]] || continue
-        local frame_sec=$(echo "$start_sec + ($i / $fps)" | bc -l)
-        local ts=$(seconds_to_timestamp "$frame_sec")
-        mv "$f" "$outdir/t_${ts}.jpg"
-        ((i++)) || true
-    done
+                local ts=$(seconds_to_timestamp "$sample")
+                local suffix=""
+                if [[ "$offset" == "-$triplet" ]]; then suffix="_a";
+                elif [[ "$offset" == "0" ]]; then suffix="_b";
+                else suffix="_c"; fi
+
+                ffmpeg -ss "$sample" -i "$video" \
+                    -vf "select=eq(n\,0),scale=$width:-1" \
+                    -q:v 2 \
+                    -frames:v 1 \
+                    "$outdir/t_${ts}${suffix}.jpg" \
+                    -y -loglevel error
+            done
+            t=$(echo "$t + $step" | bc -l)
+        done
+    else
+        echo "Extracting range $start_time to $end_time (${fps}fps, ${width}px)..."
+
+        ffmpeg -ss "$start_sec" -i "$video" -t "$duration" \
+            -vf "fps=$fps,scale=$width:-1" \
+            -q:v 2 \
+            -vsync vfr \
+            "$outdir/frame_%04d.jpg" \
+            -y -loglevel error
+
+        # Rename with actual timestamps
+        local i=0
+        for f in "$outdir"/frame_*.jpg; do
+            [[ -f "$f" ]] || continue
+            local frame_sec=$(echo "$start_sec + ($i / $fps)" | bc -l)
+            local ts=$(seconds_to_timestamp "$frame_sec")
+            mv "$f" "$outdir/t_${ts}.jpg"
+            ((i++)) || true
+        done
+    fi
 
     local count=$(ls -1 "$outdir"/*.jpg 2>/dev/null | wc -l | tr -d ' ')
     echo "Created $count frames in $outdir"
@@ -211,19 +251,22 @@ case "$command" in
         cmd_overview "$1" "${2:-10}" "${3:-320}"
         ;;
     range)
-        [[ $# -lt 2 ]] && die "usage: videx range <video> <start-end> [--fps=N] [--width=N]"
+        [[ $# -lt 2 ]] && die "usage: videx range <video> <start-end> [--fps=N] [--width=N] [--triplet=N]"
         video="$1"
         range="$2"
         shift 2
         fps=2
         width=1280
+        triplet=0
         for arg in "$@"; do
             case "$arg" in
                 --fps=*) fps="${arg#--fps=}" ;;
                 --width=*) width="${arg#--width=}" ;;
+                --triplet=*) triplet="${arg#--triplet=}" ;;
+                --triplet) triplet="0.1" ;;
             esac
         done
-        cmd_range "$video" "$range" "$fps" "$width"
+        cmd_range "$video" "$range" "$fps" "$width" "$triplet"
         ;;
     zoom)
         [[ $# -lt 2 ]] && die "usage: videx zoom <video> <time> [--hd]"

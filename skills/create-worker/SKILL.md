@@ -28,7 +28,7 @@ Workers are specialized AI assistants that Claude Code can delegate tasks to. Ea
 
 **Choose skills instead when:**
 
-- The capability extends Claude's knowledge without needing separate context
+- The capability extends your knowledge without needing separate context
 - No specialized agent persona is needed
 - Tool restrictions are sufficient without full agent isolation
 

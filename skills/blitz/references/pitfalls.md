@@ -2,7 +2,7 @@
 
 ## Agent Resume Errors
 
-Claude agents cannot resume after API disconnection. If an agent fails mid-task:
+Agents cannot resume after API disconnection. If an agent fails mid-task:
 
 1. Check its worktree state:
    ```bash

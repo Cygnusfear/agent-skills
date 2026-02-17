@@ -1,11 +1,11 @@
 ---
 name: blitz
-description: This skill should be used when parallelizing multi-issue sprints using git worktrees and parallel Claude agents. Use when tackling multiple GitHub issues simultaneously, when the user mentions "blitz", "parallel sprint", "worktree workflow", or when handling 3+ independent issues that could be worked on concurrently. Orchestrates the full workflow from issue triage through parallel agent delegation to sequential merge.
+description: This skill should be used when parallelizing multi-issue sprints using git worktrees and parallel agents. Use when tackling multiple GitHub issues simultaneously, when the user mentions "blitz", "parallel sprint", "worktree workflow", or when handling 3+ independent issues that could be worked on concurrently. Orchestrates the full workflow from issue triage through parallel agent delegation to sequential merge.
 ---
 
 # The Blitz: Parallel Worktree + Agent Workflow
 
-Parallelizes multi-issue sprints by running independent Claude agents in isolated git worktrees. Each agent creates a PR, self-reviews to 10/10 with 100% issue coverage, then PRs are sequentially merged to avoid conflicts. Herding 🐲.
+Parallelizes multi-issue sprints by running independent agents in isolated git worktrees. Each agent creates a PR, self-reviews to 10/10 with 100% issue coverage, then PRs are sequentially merged to avoid conflicts. Herding 🐲.
 
 ## ⚠️ MANDATORY: 100% Issue Coverage Per Agent
 

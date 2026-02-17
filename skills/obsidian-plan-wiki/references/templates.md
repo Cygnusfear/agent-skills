@@ -339,7 +339,7 @@ When a past incident is relevant to a code folder, link the postmortem directly 
 ```markdown
 # Project Wiki
 
-> **For Claude:** Start here. Read feature area READMEs for context, then specific specs as needed.
+> **For you:** Start here. Read feature area READMEs for context, then specific specs as needed.
 
 ## Feature Areas
 

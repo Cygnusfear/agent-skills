@@ -11,7 +11,7 @@ E2E tests check **state labels** (e.g., `action === 'Engage'`) but not **actual 
 
 ## Solution: Visual Verification Loop
 
-Combine Playwright video recording with video-explorer frame extraction to enable Claude to visually debug test failures without human involvement.
+Combine Playwright video recording with video-explorer frame extraction to enable you to visually debug test failures without human involvement.
 
 ### Flow
 
@@ -19,7 +19,7 @@ Combine Playwright video recording with video-explorer frame extraction to enabl
 1. Run E2E test with video recording enabled
 2. Test completes (pass or fail)
 3. Extract frames from test-results/*.webm using video-explorer
-4. Claude analyzes frames visually:
+4. You analyze frames visually:
    - "Frame 00:03: Label shows 'Engage'"
    - "Frame 00:03-00:08: No projectiles visible"
    - "Diagnosis: Engage state set but weapon not firing"
@@ -63,6 +63,6 @@ Adapt this table to your project's visual indicators:
 ### Benefits
 
 1. **True behavior verification** - see what actually happens, not just state changes
-2. **NHITL debugging** - Claude watches the video, finds problems autonomously
+2. **NHITL debugging** - You watch the video, find problems autonomously
 3. **Evidence-based fixes** - know exactly what's broken before coding
 4. **Regression detection** - visual diff between expected and actual behavior

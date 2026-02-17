@@ -61,7 +61,7 @@ Systematically review and update all project documentation to ensure accuracy, c
 
 1. **Find all documentation files**:
    - Plan tickets (tagged `plan`) - search with `tk list --tag plan`
-   - `**/AGENTS.md` - Claude-specific guidelines
+   - `**/AGENTS.md` - Agent-specific guidelines
    - `docs/**/*` - General documentation
    - Any other doc files the user specifies
 

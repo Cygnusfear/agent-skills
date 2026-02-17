@@ -1,6 +1,6 @@
 ---
 name: video-explorer
-description: This skill should be used when analyzing video files. Claude cannot process video directly, so this skill extracts frames hierarchically - starting with a quick overview, then zooming into regions of interest with higher resolution and temporal density. Use when asked to watch, analyze, review, or understand video content.
+description: This skill should be used when analyzing video files. You cannot process video directly, so this skill extracts frames hierarchically - starting with a quick overview, then zooming into regions of interest with higher resolution and temporal density. Use when asked to watch, analyze, review, or understand video content.
 ---
 
 # Video Explorer
@@ -25,6 +25,17 @@ ls ./videx-out/<name>/overview/
 ```
 
 Then use the Read tool on the jpg files to see them.
+
+### ⚠️ Triplet Rule: Never Single-Frame Sample
+
+A single snapshot tells you nothing about *change*. Overview automatically extracts **3 frames per sample point** (t-δ, t, t+δ) so you see motion at each checkpoint. Default δ=0.1s (~3 frames at 30fps) — tight enough to show micro-motion against the long interval between samples.
+
+Triplet files are suffixed `_a`, `_b`, `_c`. Always compare the triplet together.
+
+Configure delta for your needs:
+- `--triplet=0.1` (default) — subtle motion, UI transitions
+- `--triplet=0.5` — broader change, scene transitions  
+- `--triplet=1.0` — wide spread, slow-moving content
 
 ### 2. Identify Regions of Interest
 
@@ -60,10 +71,12 @@ Repeat zoom operations as needed until the question is answered.
 
 | Command | Purpose | Output |
 |---------|---------|--------|
-| `videx overview <video>` | Quick timeline scan | 320px frames @ 10s intervals |
-| `videx overview <video> 5 480` | Denser timeline | 480px frames @ 5s intervals |
-| `videx range <video> <start>-<end>` | Extract segment | 1280px frames @ 2fps |
+| `videx overview <video>` | Quick timeline scan | 320px triplets @ 10s intervals (±0.1s) |
+| `videx overview <video> 5 480` | Denser timeline | 480px triplets @ 5s intervals |
+| `videx overview <video> 10 320 0.5` | Wider triplet delta | 320px triplets @ 10s, ±0.5s spread |
+| `videx range <video> <start>-<end>` | Extract segment | 1280px frames @ 2fps (no triplets) |
 | `videx range <video> <start>-<end> --fps=10` | Fast action | 1280px frames @ 10fps |
+| `videx range <video> <start>-<end> --triplet=0.1` | Range with triplets | 1280px triplets @ 2fps |
 | `videx zoom <video> <time>` | Single frame detail | 1920px single frame |
 | `videx zoom <video> <time> --hd` | Maximum detail | Full resolution frame |
 
